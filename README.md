@@ -25,7 +25,7 @@ The first line of this file consists of two integers $n'$ and $m'$, where $n'$ i
 
 >{output-file}_flip
 
-+ The first line contains two integers $n'  n$, where $n'$ is the number of nodes/variables *after* compression and $n$ is the number of nodes *before* compression. 
++ The first line contains two integers $n'$ and   $n$, where $n'$ is the number of nodes/variables *after* compression and $n$ is the number of nodes *before* compression. 
 + In the next $n'$ line, the $i$-th line contains
 	+ The fisrt number: the number of nodes that are compressed to the $(i-1)$-th node. 
 	+ The ids of the nodes that are compressed to the $(i-1)$-th node in the compressed graph.
