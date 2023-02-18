@@ -35,7 +35,7 @@ The first line of this file consists of two integers $n'$ and $m'$, where $n'$ i
 
 >./fasthare exp1.net exp1 1.0
 
->exp1.net,10,14,1,4.1e-05
+>exp1.net,2,1,1,0.000114
 
 | <span>exp1</span>.net	|exp1_compress        |exp1_flip        |
 |-----------------------|---------------------|-----------------|
@@ -53,7 +53,7 @@ The first line of this file consists of two integers $n'$ and $m'$, where $n'$ i
 | 2 1 <br>0 1 -3	|1 0                  |1 2 <br> 2 1 0 <br> 0 1           |
 | $\displaystyle\min_{\mathbf{x}\in\{-1,+1\}^2} -[-3 s_0 s_1]$	|Compressed into $n'=1$ node and $m'=0$ edges |  $s_0= - s_1 = s_0'$. <br>The qubit $s_0$ is not flipped and the qubit $s_1$ is *flipped* before compression. <br>The optimal solutions are either<br>$s_0=-s_1 = s_0' = -1$ or <br>$s_0= -s_1 = s_0' = +1$.  |
 
->./fasthare exp3.net exp2 0.2
+>./fasthare exp3.net exp3 0.2
 
 > exp3.net,10,14,3,0.000941
 
