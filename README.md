@@ -1,3 +1,12 @@
+# Update: New in version 0.8
+
+Add Python Interface inside the folder Python Package
+Install using PIP 
+- clone this repository
+- `pip install ./python_package`
+
+More details can be found in python_package/README.md
+
 # FastHare
 Source code for the paper "FastHare: Fast Hamiltonian Reduction for Large-scale Quantum Annealing, IEEE Int. Conf. on Quantum Computing and Engineering (QCE) 2022"
 https://arxiv.org/abs/2205.05004
