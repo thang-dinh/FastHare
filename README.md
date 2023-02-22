@@ -2,7 +2,7 @@
 
 Add Python Interface inside the folder Python Package
 Install using PIP 
-- clone this repository
+- clone this repository and go inside the FastHare folder
 - `pip install ./python_package`
 
 More details can be found in python_package/README.md
