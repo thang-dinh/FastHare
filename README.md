@@ -1,6 +1,7 @@
 # Update: New in version 0.8
 
-Add Python Interface inside the folder python_package
+Add Python Interface inside the folder python_package.
+
 Install using PIP 
 - clone this repository and go inside the FastHare folder
 - `pip install ./python_package`
