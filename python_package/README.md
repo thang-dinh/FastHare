@@ -28,16 +28,22 @@ print(time)
 Output
 
 >Using list of triples i, j, h_ij
+
 >([], [0, 0], [1, -1], 1.9e-05)
+
 >Reading triples i, j, h_ij from file
+
 >[(0, 1, 1.0), (0, 2, 3.0), (1, 2, 3.0)]
+
 >[2, 2, 2, 2, 2, 2, 2, 1, 0, 1]
+
 >4.4e-05
 
 The output is a tuple of <compressed_hamiltonian, spin_mapping, spin_sign, running_time>.
-compressed_hamiltonian: triples of (i, j, h_ij)
-spin_mapping: The ith entry indicates which spin in the compressed hamiltonian that the ith spin in the input Hamiltonian mapped to
-spin_sign: The ith entry is -1 if the ith spin in the input Hamiltonian is reversed (+1 otherwise)
-running_time: run time in second(s)
+
++ compressed_hamiltonian: triples of (i, j, h_ij)
++ spin_mapping: The ith entry indicates which spin in the compressed hamiltonian that the ith spin in the input Hamiltonian mapped to
++ spin_sign: The ith entry is -1 if the ith spin in the input Hamiltonian is reversed (+1 otherwise)
++ running_time: run time in second(s)
 
 
