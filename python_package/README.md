@@ -27,7 +27,8 @@ print(time)
 ```
 Output
 
-```Using list of triples i, j, h_ij
+```Python
+Using list of triples i, j, h_ij
 ([], [0, 0], [1, -1], 1.9e-05)
 Reading triples i, j, h_ij from file
 [(0, 1, 1.0), (0, 2, 3.0), (1, 2, 3.0)]
