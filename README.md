@@ -6,7 +6,7 @@ Install using PIP
 - clone this repository and go inside the FastHare folder
 - `pip install ./python_package`
 
-More details can be found in python_package/README.md
+More details can be found in the [python_package/README.md](python_package/README.md)
 
 # FastHare
 Source code for the paper "FastHare: Fast Hamiltonian Reduction for Large-scale Quantum Annealing, IEEE Int. Conf. on Quantum Computing and Engineering (QCE) 2022"
