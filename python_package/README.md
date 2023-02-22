@@ -54,5 +54,5 @@ Explanation for the output of "exp3.net"
 
 | <span>exp3</span>.net	|compressed_hamiltonian        |spin_mapping/spin_sign        |
 |-----------------------|---------------------|-----------------|
-| 10 14<br>0 1 -2<br>0 2 -4<br>1 2 2<br>1 3 -1<br>2 3 -6<br>3 4 3<br>4 5 4<br>4 6 4<br>5 6 -1<br>6 7 3<br>6 8 3<br>7 8 -1<br>7 9 3<br>8 9 2	|3 3<br>0 1 1<br>0 2 3<br>1 2 3   |[2, 2, 2, 2, 2, 2, 2, 1, 0, 1]<br>[1, -1, -1, 1, 1, 1, 1, 1, 1, 1]         |
-| ...	|Compressed into the below Hamiltonian with $n'=3$ nodes and $m'=3$ edges.<br> $\displaystyle\min_{\mathbf{x}\in\{-1,+1\}^3} -[ s_0 s_1 + 3 s_0 s_2 + 3 s_1 s_2]$	  |  $s_8=  s_0'$<br>$s_9=  s_7=s_1'$<br>$s_6= s_5=s_4 =s_3 = - s_2 = =s_1 = s_0= s_2'$ <br>The qubits $s_1$ and $s_2$ are *flipped* before the compression.  
+| 10 14<br>0 1 -2<br>0 2 -4<br>1 2 2<br>1 3 -1<br>2 3 -6<br>3 4 3<br>4 5 4<br>4 6 4<br>5 6 -1<br>6 7 3<br>6 8 3<br>7 8 -1<br>7 9 3<br>8 9 2	|[(0, 1, 1.0),<br> (0, 2, 3.0),<br> (1, 2, 3.0)]   |[2, 2, 2, 2, 2, 2, 2, 1, 0, 1]<br>[1, -1, -1, 1, 1, 1, 1, 1, 1, 1]         |
+| ...	|Compressed into the below Hamiltonian with $n'=3$ nodes and $m'=3$ edges.<br> $\displaystyle\min_{\mathbf{x}\in\{-1,+1\}^3} -[ s_0 s_1 + 3 s_0 s_2 + 3 s_1 s_2]$	  |  $s_8=  s_0'$<br>$s_9=  s_7=s_1'$<br>$s_6= s_5=s_4 =s_3 = - s_2 = -s_1 = s_0= s_2'$ <br>The qubits $s_1$ and $s_2$ are *flipped* before the compression.  
