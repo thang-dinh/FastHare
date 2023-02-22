@@ -34,7 +34,7 @@ Reading triples i, j, h_ij from file
 [2, 2, 2, 2, 2, 2, 2, 1, 0, 1]
 [1, -1, -1, 1, 1, 1, 1, 1, 1, 1]
 4.4e-05
-'''
+```
 
 The output is a tuple of <compressed_hamiltonian, spin_mapping, spin_sign, running_time>.
 
