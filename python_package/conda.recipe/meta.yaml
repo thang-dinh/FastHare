@@ -1,0 +1,35 @@
+package:
+  name: fasthare
+  version: 0.8
+
+source:
+  path: ..
+
+build:
+  number: 0
+  script: {{ PYTHON }} -m pip install . -vvv
+
+requirements:
+  build:
+    - {{ compiler('cxx') }}
+
+  host:
+    - python
+    - pip
+    - pybind11 >=2.10.0
+
+  run:
+    - python
+
+
+test:
+  imports:
+    - fasthare
+  source_files:
+    - tests
+  commands:
+    - python tests/test.py
+
+about:
+  summary: FastHare QUBO/Hamiltonian reduction.
+  license_file: LICENSE
