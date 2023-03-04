@@ -21,6 +21,7 @@ FastHare::FastHare(ski sk_ising, double alpha) {
         w.push_back(std::get<2>(i));
         n = max<int>(n, max<int>(bv.back(), ev.back() ));
     }
+    this->alpha = alpha;
     n_original = n + 1;
     G.from_edge_list(n_original,bv,ev,w);
 }
