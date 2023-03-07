@@ -1,6 +1,6 @@
 #include "graph.h"
 #include "fasthare.h"
-
+#include <algorithm>
 using namespace std;
 
 
