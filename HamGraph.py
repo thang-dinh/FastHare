@@ -85,7 +85,7 @@ def draw_gv(G, html_file='netvis.html', display_method = None, sample = None):
 
   # Display   
   fig = gv.d3(G, use_node_size_normalization=True, node_size_normalization_max=30,
-      use_edge_size_normalization=True, edge_size_data_source='width',\
+      use_edge_size_normalization=True, edge_size_data_source='width',show_menu=True,\
         edge_curvature=0.25, edge_hover_tooltip=True, graph_height=700)
   if os.path.isfile(html_file):
     print('Warning: File exists. Overwritten ', html_file)
