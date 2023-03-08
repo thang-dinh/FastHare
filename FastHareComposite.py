@@ -1,3 +1,11 @@
+
+"""This is the package `FastHareComposite`.
+It provides a simple composite to work with the `Samplers` from  dwave-ocean-sdk.
+
+Copyright 2023 by Thang N. Dinh
+Email: tndinh@vcu.edu
+"""
+
 from dimod.core.composite import Composite
 from dimod.core.sampler import Sampler
 from dimod.sampleset import SampleSet, concatenate
@@ -45,6 +53,7 @@ class FastHareComposite(Sampler, Composite):
         """
         #assert(bqm.vartype in [dimod.SPIN, dimod.BINARY], "Unsupported VarType for variables. FastHare only supports SPIN and BINARY")
         fh_bqm = bqm.copy()
+        # print("Bqm model: ", bqm)
         h, J, offset = fh_bqm.to_ising() 
         #print("Original Ising: ", h, J)
         #Remove zero coefficients/biases
@@ -57,17 +66,18 @@ class FastHareComposite(Sampler, Composite):
         # Make a set of ``ghost'' variables that got eliminated
         sv = set(var_names)
         ghost_var = [v for v in bqm.variables if not v in sv]
+        # print("Stranded variables ", ghost_var)
         # Set alpha to log number of variables
         if not alpha:
             self.alpha = int(math.log(len(bqm.variables)))+1
         else:
             self.alpha = alpha
-        #print("Input Ising for FastHare: ", fh_ising)
+        # print("Input Ising for FastHare: ", fh_ising)
         fh_reduced_ising, fh_map, fh_sign, runtime = fh.fasthare_reduction(sk_ising = fh_ising, alpha = self.alpha )
-        
+        # print("reduced map/sign \n",fh_map,"\n", fh_sign)
         fbqm = lambda x: x
         if bqm.vartype == dimod.BINARY:
-               fbqm = lambda x: (x+1)/2.0
+            fbqm = lambda x: (x+1)/2.0
         if not fh_reduced_ising:           
            if verbose:
              print("FastHare: Reduced 100% variables. Exact solution found.")
@@ -86,11 +96,12 @@ class FastHareComposite(Sampler, Composite):
                     len(bqm.variables),\
                     100.0*(len(bqm.variables) - len(bqm_r.variables))/ len(bqm.variables)))
             sampleset_r = self.child.sample(bqm_r, **kwargs)
-            #print(sampleset_r)
+            # print(sampleset_r)
             sampleset = [] 
             for sample in sampleset_r:
                 f0 = lambda idx: 1 if idx == 0 else sample[idx]  
-                sol = { var_names[i]: fbqm( f0( fh_map[i] ) * fh_sign[i]) for i in range(1,  len(var_names))}
+                sign_h = f0(fh_map[0]) * fh_sign[0]
+                sol = { var_names[i]: fbqm( f0( fh_map[i] ) * fh_sign[i] * sign_h) for i in range(1,  len(var_names))}    
                 #print(sol)
                 sol.update({v:1 for v in ghost_var})
                 sampleset.append( sol )

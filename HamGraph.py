@@ -82,11 +82,12 @@ def draw_gv(G, html_file='netvis.html', display_method = None, sample = None):
       a['color'] = color[0]
       a['hover'] = str(a['weight'])
                 # + " - " + str(a['color']) + " - "+str(a['value'])
-
+    
   # Display   
   fig = gv.d3(G, use_node_size_normalization=True, node_size_normalization_max=30,
-      use_edge_size_normalization=True, edge_size_data_source='width',show_menu=True,\
-        edge_curvature=0.25, edge_hover_tooltip=True, graph_height=500)
+      use_edge_size_normalization=True, edge_size_data_source='width',\
+        edge_curvature=0.25, edge_hover_tooltip=True, show_menu=True,\
+            graph_height=400)
   if os.path.isfile(html_file):
     print('Warning: File exists. Overwritten ', html_file)
     os.remove(html_file)
@@ -251,14 +252,17 @@ class   HamGraph:
                 will attempt to open the html file in the browser
             sample (dictionary, optional, default = None):
                 A dictionary contains +1/-1 classification of nodes
-       """
+        """
        G = self.get_networkx()
        # Replace the linear_spin with "h"
        G = nx.relabel_nodes(G, {self.linear_spin:"h"}, copy=False)
        if "h" in G.nodes():
           G.nodes["h"]['color'] = '#ffffff'
           G.nodes["h"]["border_color"]='#333333'
-          G.nodes["h"]["border_size"]=2
+          G.nodes["h"]["border_size"]=1
+          G.nodes["h"]["shape"]='hexagon'
+          G.nodes["h"]["opacity"]='0.3'
+
 
     
        
