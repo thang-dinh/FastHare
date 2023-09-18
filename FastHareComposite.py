@@ -97,11 +97,15 @@ class FastHareComposite(Sampler, Composite):
                     100.0*(len(bqm.variables) - len(bqm_r.variables))/ len(bqm.variables)))
             sampleset_r = self.child.sample(bqm_r, **kwargs)
             # print(sampleset_r)
+            # If there is no linear_spin, then include 0th variable in the solution
+            b_index = 1
+            if (var_names[0] != hg.linear_spin):
+              b_index = 0
             sampleset = [] 
             for sample in sampleset_r:
                 f0 = lambda idx: 1 if idx == 0 else sample[idx]  
                 sign_h = f0(fh_map[0]) * fh_sign[0]
-                sol = { var_names[i]: fbqm( f0( fh_map[i] ) * fh_sign[i] * sign_h) for i in range(1,  len(var_names))}    
+                sol = { var_names[i]: fbqm( f0( fh_map[i] ) * fh_sign[i] * sign_h) for i in range(b_index,  len(var_names))}    
                 #print(sol)
                 sol.update({v:1 for v in ghost_var})
                 sampleset.append( sol )
