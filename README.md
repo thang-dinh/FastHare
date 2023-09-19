@@ -1,7 +1,7 @@
-# Update: Add Ocean D-wave SDK interface: FastHareComposite
-A quick tutorial in Google Colab/ Jupyter Notebook [<Source>](FastHare_Tutorial_Notebook.ipynb) [<Open in Google Colab>](https://colab.research.google.com/github/thang-dinh/FastHare/blob/main/FastHare_Tutorial_Notebook.ipynb)
+# Update: v0.92 Add Ocean D-wave SDK interface: FastHareComposite
+A quick tutorial in Google Colab/ Jupyter Notebook [[Source](FastHare_Tutorial_Notebook.ipynb) ||  [Open in Google Colab](https://colab.research.google.com/github/thang-dinh/FastHare/blob/main/FastHare_Tutorial_Notebook.ipynb)]
 
-# Update: Add Python interface [python_package/README.md](python_package/README.md)
+# Update: v0.8 Add Python interface [python_package/README.md](python_package/README.md)
 
 Install using PIP 
 - clone this repository and go inside the FastHare folder
