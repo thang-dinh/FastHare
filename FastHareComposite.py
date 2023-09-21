@@ -78,10 +78,14 @@ class FastHareComposite(Sampler, Composite):
         fbqm = lambda x: x
         if bqm.vartype == dimod.BINARY:
             fbqm = lambda x: (x+1)/2.0
+        # If there is no linear_spin, then include 0th variable in the solution
+        b_index = 1
+        if (var_names[0] != hg.linear_spin):
+          b_index = 0
         if not fh_reduced_ising:           
            if verbose:
              print("FastHare: Reduced 100% variables. Exact solution found.")
-           sample =  {var_names[i]:fbqm(fh_sign[i]*fh_sign[0]) for i in range(1, len(var_names) )} 
+           sample =  {var_names[i]:fbqm(fh_sign[i]*fh_sign[0]) for i in range(b_index, len(var_names) )} 
            sample.update({v:1 for v in ghost_var})
         #    print("Optimal solution found ", sample)
            return SampleSet.from_samples_bqm(sample, bqm)
@@ -97,10 +101,6 @@ class FastHareComposite(Sampler, Composite):
                     100.0*(len(bqm.variables) - len(bqm_r.variables))/ len(bqm.variables)))
             sampleset_r = self.child.sample(bqm_r, **kwargs)
             # print(sampleset_r)
-            # If there is no linear_spin, then include 0th variable in the solution
-            b_index = 1
-            if (var_names[0] != hg.linear_spin):
-              b_index = 0
             sampleset = [] 
             for sample in sampleset_r:
                 f0 = lambda idx: 1 if idx == 0 else sample[idx]  
