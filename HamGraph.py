@@ -181,7 +181,7 @@ class   HamGraph:
     def from_networkx(self, graph, linear_spin = None):
         """Create a HamGraph from a networkx graph
         """
-        if not linear_spin:
+        if linear_spin is not None:
             self.linear_spin = list(graph.nodes)[0]
         else:
             self.linear_spin = linear_spin
@@ -215,28 +215,30 @@ class   HamGraph:
         range starting at zero.
         """
         self.offset = offset
-        if not var_names:
-            if not linear_spin:
-                self.graph = { (i, j): hij for i, j, hij in fasthare_ising }
+        if var_names is not None:
+            if linear_spin is None:
+              self.graph = { (i, j): hij for i, j, hij in fasthare_ising }
             else:
-                self.graph = {}
-                for key, value in fasthare_ising.items():
-                   if key[0] == linear_spin:
-                      self.graph[(self.linear_spin, key[1])] = value
-                   elif key[1] == linear_spin:
-                      self.graph[(self.linear_spin, key[0])] = value
-                   else:
-                      self.graph[key] = value
+              self.graph = {}
+              for (u, v, value) in fasthare_ising:
+                if u == linear_spin:
+                  self.graph[(self.linear_spin, v)] = value
+                elif v == linear_spin:
+                  self.graph[(self.linear_spin, u)] = value
+                else:
+                  self.graph[(u, v)] = value
         else:
-            if not linear_spin:
-                self.graph = {}
-                for key, value in fasthare_ising.items():
-                   if key[0] == linear_spin:
-                      self.graph[(self.linear_spin, var_names[key[1]])] = value
-                   elif key[1] == linear_spin:
-                      self.graph[(self.linear_spin, var_names[key[0]])] = value
-                   else:
-                      self.graph[(var_names[key[0]], var_names[key[1]])] = value
+            if linear_spin is None:
+              self.graph = { (var_names[i], var_names[j]): hij for i, j, hij in fasthare_ising }
+            else:
+              self.graph = {}
+              for (u, v, value) in fasthare_ising:
+                if u == linear_spin:
+                  self.graph[(self.linear_spin, var_names[v])] = value
+                elif v == linear_spin:
+                  self.graph[(self.linear_spin, var_names[u])] = value
+                else:
+                  self.graph[(var_names[u], var_names[v])] = value
         
     
     def draw(self, html_file='netvis.html', display_method = None, sample = None):
@@ -262,12 +264,4 @@ class   HamGraph:
           G.nodes["h"]["border_size"]=1
           G.nodes["h"]["shape"]='hexagon'
           G.nodes["h"]["opacity"]='0.3'
-
-
-    
-       
        draw_gv(G, html_file, display_method, sample)
-
-       
-
-            
