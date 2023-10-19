@@ -122,6 +122,8 @@ class   HamGraph:
             self.from_fasthare_ising(**kwargs)
         elif mode == 'networkx':
             self.from_networkx(**kwargs)
+        elif mode == 'netfile':
+            self.get_net_file(**kwargs)
         else:
             self.offset = 0
             self.graph = {}
@@ -133,6 +135,18 @@ class   HamGraph:
         an actual node label.
         """
         self.linear_spin = linear_spin
+
+    def get_net_file(self, filename):      
+      with open(filename,'r') as f:
+        fh_ising = []
+        for line in f:
+          triple = [int(x) for x in line.split()]
+          if len(triple) == 3: #skip the first line, containing n & m
+            fh_ising.append(triple)
+        self.from_fasthare_ising(fasthare_ising = fh_ising)
+
+        
+           
 
     def from_ising(self, h, J, offset = 0):
         """Convert Ising to HamGraph
