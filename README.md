@@ -94,4 +94,3 @@ Convert the instance into .net format
 The program read the QUBO in {qubo-file} and write the Hamiltonian without linear terms to {net-file}
 
 
-![](https://hit.yhype.me/github/profile?user_id=23106693)
