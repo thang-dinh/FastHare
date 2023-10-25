@@ -1,3 +1,4 @@
+# Update: v1.00 Fix the bug on interfacing with Ocean D-wave SDK interface (FastHareComposite)
 # Update: v0.92 Add Ocean D-wave SDK interface: FastHareComposite
 A quick tutorial in Google Colab/ Jupyter Notebook [[Source](FastHare_Tutorial_Notebook.ipynb) ||  [Open in Google Colab](https://colab.research.google.com/github/thang-dinh/FastHare/blob/main/FastHare_Tutorial_Notebook.ipynb)]
 
