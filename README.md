@@ -6,6 +6,30 @@
 + Adding log_file option for verbose mode. Example:
 > `rh, map, sign, time = m.fasthare_reduction(file ="exp3.net",alpha=0.2, log_file="exp3.log")`
 
++ New FastHareComposite package on PyPI
+	- Installation:
+	> `pip install FastHareComposite`
+	- Usage:
+	```python
+	import neal
+	from FastHareComposite import FastHareComposite
+
+	# A toy Ising Hamiltonian
+	h = {0: -3, 1: -4, 2: 4, 3: 4} 
+	J = {(0, 2): 1, (0, 3): -4, (1, 3): -2, (2, 3): 3}
+
+	# Use FastHare composite to preprocess instance before solving
+	fh_sa = FastHareComposite(sa)
+
+	# Solve the compressed Ising using simulated annealing (SA)
+	sample_set_fh = fh_sa.sample_ising(h, J, num_reads=100)
+
+	# Print out the samples
+	print(sample_set_fh.aggregate())
+	print("Best solution has a minimum energy", sample_set_fh.first.energy)
+	```
+
+
 # Update: v1.0.0 Official release
 Fix the bug on interfacing with Ocean D-wave SDK interface (FastHareComposite)
 # Update: v0.92 Add Ocean D-wave SDK interface: FastHareComposite
