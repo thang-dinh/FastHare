@@ -8,7 +8,7 @@
 
 + New FastHareComposite package on PyPI
 	- Installation:
-	> `pip install FastHareComposite`
+	> `pip install FastHareComposite dwave-neal`
 	- Usage:
 	```python
 	import neal
