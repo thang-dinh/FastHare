@@ -15,17 +15,23 @@ FastHare::fasthare_output fasthare_reduction(
     FastHare::ski sk_ising, 
     // If not empty, load the SK Hamiltonian graph from file
     string file = "", 
-    double alpha = 1.0)
+    double alpha = 1.0,
+    string log_file = "") // If not empty, log the compression process
 {
     if (!file.empty()) {
         FastHare fh(file, alpha);
+        if (!log_file.empty())
+            fh.set_log(log_file);
         fh.run();
         return fh.get_output();
     } else  {
         FastHare fh(sk_ising, alpha);
+        if (!log_file.empty())
+            fh.set_log(log_file);
         fh.run();
         return fh.get_output();
     }
+    
 }
 
 namespace py = pybind11;
@@ -48,6 +54,7 @@ PYBIND11_MODULE(fasthare, m) {
         py::arg("sk_ising") = FastHare::ski(),
         py::arg("file") = string(""), 
         py::arg("alpha") = 1.0, 
+        py::arg("log_file") = string(""),
          R"pbdoc(
         Reduce/compress an SK Hamiltonian to obtain an equilvalent
         albeit smaller SK Hamiltonian

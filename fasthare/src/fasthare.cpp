@@ -30,24 +30,28 @@ bool FastHare::set_log(string log_file)
 {
     try
     {
-
+        cout <<"Logging to file: " << log_file << endl <<std::flush;;
         f_log.open(log_file);
     }
     catch (exception e)
     {
-        cout << "Error: cannot open " << log_file << endl;
+        cout << "Error: cannot open " << log_file << endl <<std::flush;;
         return false;
     }
     logging = true;
     return true;
 }
 
-FastHare::~FastHare()
-{
+void FastHare::close_log(){
     if (logging) 
         try { 
             f_log.close();
         } catch (exception e) {}
+    logging = false;
+}
+FastHare::~FastHare()
+{
+   close_log();
 }
 
 double FastHare::get_running_time()
@@ -55,28 +59,31 @@ double FastHare::get_running_time()
     return double(clock() - start_time) / (CLOCKS_PER_SEC);
 }
 
+void print_merged_nodes(const vector<int> &group, ofstream &f_log)
+{
+    f_log << "Merging nodes: \t";
+    for (int i : group)
+        f_log << i << "\t";
+    f_log << endl;
+}
+
+
 void FastHare::print_graph_test()
 {
-    int cnt;
-    for (int i = 0; i < G.n_nodes; ++i)
-    {
-        cnt = 0;
-        if (logging)
-            f_log << i << " " << G.nodes[i].s << endl;
-        for (
-
-            auto j : G.nodes[i].edges)
-        {
-            if (logging)
-                f_log << i << " " << j.neighbor << " " << j.w << endl;
-            ++cnt;
+    if (logging) {
+        f_log <<"Nodes: " << G.n_nodes << " Edges: "<<G.n_edges<<endl;
+        f_log <<"Adjacency list: "<<endl;
+        for (int i = 0; i < G.n_nodes; ++i) {
+            f_log <<i<<":\t";
+            for (auto j : G.nodes[i].edges)
+                    f_log << j.neighbor << "\t ";
+            f_log << endl <<"w:\t";
+            for (auto j : G.nodes[i].edges)
+                    f_log << j.w << "\t ";
+            f_log << endl;
         }
-        if (logging)
-
-            f_log << "--------------------------------------\n";
+        f_log<<"--------------------------------------"<<endl;
     }
-    if (logging)
-        f_log << "--------------------------------------\n";
 }
 
 void FastHare::check_graph()
@@ -113,7 +120,7 @@ bool FastHare::fast_find_NS()
     double _nsi;
     // cerr << G.n_nodes << endl;
     if (logging)
-        f_log << "Find NGs with k = 2\n";
+        f_log << "Fast NGs identification...\n";
     clock_t time_tmp;
     time_tmp = clock();
     for (u = 0; u < G.n_nodes; ++u)
@@ -204,6 +211,8 @@ bool FastHare::fast_find_NS()
 
             for (int i = 0; i < int(ng.size()); ++i)
                 ng[i] = G.pos[ng[i]];
+            if (logging) 
+                print_merged_nodes(ng, f_log);
             G.merge_multiple_nodes(ng);
             ng.clear();
             compressed = true;
@@ -221,12 +230,24 @@ bool FastHare::fast_find_NS()
     {
         if (is_flipped_weak)
             G.flip(weak_ng[1]);
+        if (logging) 
+            print_merged_nodes(weak_ng, f_log);
         G.merge_multiple_nodes(weak_ng);
         return true;
     }
     return false;
 }
 
+
+// _nsi3(w1, tmp_w[z], e.w, G.nodes[u].s, G.nodes[v].s, G.nodes[z].s, u, v, z);
+/*
+    u, v:       The edge (u, v) to compute the similarity score
+    z:          A neighbor of u
+    w1, w2, w3: The weights of the edges (u, v), (u, z), (v, z), respectively
+    a1, a2, a3: The strengths, defined as the 
+                total absolute weights of the edges incident to the node, of the nodes u, v, z, respectively.
+    return:     A pair of the similarity score and the node to flip
+*/
 pair<double, int> _nsi3(double w1, double w2, double w3, double a1, double a2, double a3, int u, int v, int z)
 {
     double _w1 = w1, _w2 = w2, _w3 = w3;
@@ -393,7 +414,7 @@ bool FastHare::slow_find_NS()
     double _nsi;
     // cerr << G.n_nodes << endl;
     if (logging)
-        f_log << "Find NGs with k = 2\n";
+        f_log << "Slow NGs identification...\n";
     clock_t time_tmp;
     time_tmp = clock();
     vector<pair<double, int>> sc;
@@ -514,6 +535,8 @@ bool FastHare::slow_find_NS()
 
             for (int i = 0; i < int(ng.size()); ++i)
                 ng[i] = G.pos[ng[i]];
+            if (logging) 
+                print_merged_nodes(ng, f_log);
             G.merge_multiple_nodes(ng);
             ng.clear();
             compressed = true;
@@ -529,6 +552,8 @@ bool FastHare::slow_find_NS()
     {
         if (is_flipped_weak)
             G.flip(weak_ng[1]);
+        if (logging) 
+            print_merged_nodes(weak_ng, f_log);
         G.merge_multiple_nodes(weak_ng);
         return true;
     }
@@ -582,6 +607,8 @@ bool FastHare::find_NS(int k)
                     if (logging)
                         f_log << "Finding NGs in " << double(clock() - time_tmp) / CLOCKS_PER_SEC << "s\n";
                     time_tmp = clock();
+                    if (logging) 
+                        print_merged_nodes(g, f_log);
                     G.merge_multiple_nodes(g);
                     if (logging)
                         f_log << "Merging NGs in " << double(clock() - time_tmp) / CLOCKS_PER_SEC << "s\n";
@@ -669,6 +696,8 @@ bool FastHare::find_NS(int k)
             // for (int i = 0; i < int(ng.size()); ++i)
             //     cout << ng[i] << " ";
             // cout << endl;
+            if (logging) 
+                print_merged_nodes(ng, f_log);
             G.merge_multiple_nodes(ng);
             // check_graph();
             // print_graph_test();
@@ -690,6 +719,8 @@ bool FastHare::find_NS(int k)
         // cerr << weak_ng.size() << endl;
         if (is_flipped_weak)
             G.flip(weak_ng[1]);
+        if (logging) 
+                print_merged_nodes(weak_ng, f_log);
         G.merge_multiple_nodes(weak_ng);
         // cerr << "DONE weak" << endl;
         return true;
@@ -717,6 +748,8 @@ bool FastHare::find_NS(int k)
                     _nsi = G.NSI(g);
                     if (_nsi >= 0)
                     {
+                        if (logging) 
+                            print_merged_nodes(g, f_log);
                         G.merge_multiple_nodes(g);
                         return true;
                     }
@@ -740,18 +773,20 @@ void FastHare::compress(int k)
         ++cnt;
         if (logging)
             f_log << "Iteration " << cnt << " start with " << G.n_nodes << " nodes\n";
+            
         print_graph_test();
         tmp = G.n_nodes;
         time_tmp = clock();
         compressed = fast_find_NS();
+        if (logging)
+            f_log << "Fast identifiction: Was compressed?: " << compressed <<" Nodes: "<< G.n_nodes << endl;
         // compressed = find_NS(k, true);
         print_graph_test();
-        if (compressed == false || G.check_slow)
-        {
+        if (compressed == false) {
             compressed = slow_find_NS();
+            if (logging)
+                f_log << "Slow identification: Was compressed?: " << compressed <<" Nodes: "<< G.n_nodes << endl;
         }
-        if (logging)
-            f_log << "Iteration " << cnt << " compress " << tmp - G.n_nodes << " nodes in " << double(clock() - time_tmp) / CLOCKS_PER_SEC << "s\n";
     }
 }
 

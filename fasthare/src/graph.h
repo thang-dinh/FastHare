@@ -20,7 +20,7 @@ class node{
 public:	
 	node();
     virtual ~node();
-    double s;
+    double s; // Total absolute weights of the edges incident to the node
     int l;
 	vector <int> ID;
 	vector <edge> edges;
@@ -36,7 +36,7 @@ public:
 	void from_edge_list(int n, const vector<int> &bv, const vector<int> &ev, const vector<double> &w);
 
     virtual ~graph();
-	int n_nodes, n_edges;
+	int n_nodes, n_edges; // Number of nodes and edges
 	vector <node> nodes;
 	vector <bool> is_adj;
 	vector <double> tmp;

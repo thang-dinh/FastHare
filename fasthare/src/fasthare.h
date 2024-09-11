@@ -32,7 +32,6 @@ private:
     bool find_NS(int k);
 
     void compress(int k);
-
 public:
     // SK Ising Hamiltonian as tuple of (i, j, h_ij)
     typedef   std::vector< std::tuple<int, int, double> >    ski;
@@ -58,6 +57,7 @@ public:
     void print_graph(string out_file);
     /* Return the compressed graph and compressing information */
     fasthare_output get_output();
+    void close_log();
     void run();
 
     

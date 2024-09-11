@@ -1,4 +1,12 @@
-# Update: v1.00 Official release
+# Update: v1.0.5
++ Fix the bug on premature termination after no compressable triangles identified.
++ Uploaded to PyPI. Simplify the installation to:
+> `pip install fasthare`
+
++ Adding log_file option for verbose mode. Example:
+> `rh, map, sign, time = m.fasthare_reduction(file ="exp3.net",alpha=0.2, log_file="exp3.log")`
+
+# Update: v1.0.0 Official release
 Fix the bug on interfacing with Ocean D-wave SDK interface (FastHareComposite)
 # Update: v0.92 Add Ocean D-wave SDK interface: FastHareComposite
 A quick tutorial in Google Colab/ Jupyter Notebook [[Source](FastHare_Tutorial_Notebook.ipynb) ||  [Open in Google Colab](https://colab.research.google.com/github/thang-dinh/FastHare/blob/main/FastHare_Tutorial_Notebook.ipynb)]
@@ -77,6 +85,7 @@ Changing $\alpha=0.2$ make the program runs faster, albeit, with less effective 
 | 10 14<br>0 1 -2<br>0 2 -4<br>1 2 2<br>1 3 -1<br>2 3 -6<br>3 4 3<br>4 5 4<br>4 6 4<br>5 6 -1<br>6 7 3<br>6 8 3<br>7 8 -1<br>7 9 3<br>8 9 2	|3 3<br>0 1 1<br>0 2 3<br>1 2 3   |3 10<br>1 8<br>2 9 7<br>7 6 5 4 3 2 0 1<br>0 1 1 0 0 0 0 0 0 0         |
 | ...	|Compressed into the below Hamiltonian with $n'=3$ nodes and $m'=3$ edges.<br> $\displaystyle\min_{\mathbf{x}\in\{-1,+1\}^3} -[ s_0 s_1 + 3 s_0 s_2 + 3 s_1 s_2]$	  |  $s_8=  s_0'$<br>$s_9=  s_7=s_1'$<br>$s_6= s_5=s_4 =s_3 = - s_2 = =s_1 = s_0= s_2'$ <br>The qubits $s_1$ and $s_2$ are *flipped* before the compression.  |
 
+Remark: Since the version 1.0, the Hamiltonian will be compressed into a single node.
 
 ## Convert MQLib instances (Max-cut) and QUBO into .net format (Hamiltonian without linear terms)
 ### Download and convert MQLib instances

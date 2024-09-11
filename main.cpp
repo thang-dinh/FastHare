@@ -857,7 +857,7 @@ void compress(int k, bool probe)
         compressed = fast_find_NS();
         // compressed = find_NS(k);
         print_graph_test();
-        if (compressed == false || G.check_slow)
+        if (compressed == false)
         {   
             compressed = slow_find_NS();             
         }
